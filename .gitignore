@@ -4,3 +4,4 @@ migrations/
 __pycache__/
 .idea/
 env.py
+db.sqlite3
