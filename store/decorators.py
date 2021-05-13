@@ -7,7 +7,7 @@ def validate_method(method):
             if not request.method == method:
                 return HttpResponseBadRequest()
             else:
-                return function(request, args, kwargs)
+                return function(request, *args, **kwargs)
 
         return wrapper
 
