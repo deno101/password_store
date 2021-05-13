@@ -41,6 +41,9 @@ def home(requests):
 @validate_method('GET')
 def show_password(request, site):
     data = PasswordStore.objects.filter(site=site)
+    if len(data) == 0:
+        return redirect('home')
+
     return render(request, 'password_view.html', {
         'data': data,
         'title': site
