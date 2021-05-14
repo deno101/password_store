@@ -1,0 +1,33 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <link rel="stylesheet" href="{% static 'css/add.css' %}">
+        <script type="application/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+        <script type="application/javascript" src="{% static 'js/add.js' %}"></script>
+        <title>Add</title>
+    </head>
+    <body>
+        <form method="post">
+            {% csrf_token %}
+            <div class="container">
+                <label for="username"><b>Site</b></label>
+                <input type="text" placeholder="Enter site" name="site" required>
+
+                <label for="username"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="username" required>
+
+                <label for="password"><b>Password</b></label>
+                <input id="password" type="text" placeholder="Enter Password" name="password" required>
+
+                <button id="random" type="button">Random</button>
+                <button id="submit" type="submit">Add</button>
+            </div>
+        </form>
+    </body>
+</html>

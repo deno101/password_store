@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from store.decorators import validate_method
 from django.contrib.auth.decorators import login_required
-from store.forms import LoginForm
+from store.forms import LoginForm, AddForm
 from django.contrib.auth import authenticate, login
 from store.models import PasswordStore
+from django.http import HttpResponseBadRequest
 
 
 # Create your views here.
@@ -23,6 +24,8 @@ def login_user(request):
 
     elif request.method == "GET":
         return render(request, 'login.html')
+    else:
+        return HttpResponseBadRequest()
 
 
 @validate_method('GET')
@@ -48,3 +51,27 @@ def show_password(request, site):
         'data': data,
         'title': site
     })
+
+
+@login_required(login_url='/core_pssd/login')
+def add_credentials(request):
+    if request.method == 'POST':
+        form = AddForm(request.POST)
+
+        if form.is_valid():
+            PasswordStore.objects.create(
+                site=form.data.get('site'),
+                username=form.data.get('username'),
+                password=form.data.get('password')
+            )
+
+            return redirect('home')
+    elif request.method == 'GET':
+        return render(request, 'add.html')
+    else:
+        return HttpResponseBadRequest()
+
+
+# @login_required(login_url='/core_pssd/login')
+def edit_credentials(requests, id):
+    return render(requests, 'edit.html')
