@@ -13,12 +13,15 @@
         <div id="list_container">
             <div id="title"> Available domains</div>
             {% for x in domains %}
-                <a href="/core_pssd/get/{{ x }}" class="link_item">
+                <a href="{% url 'get_pssd' x %}" class="link_item">
                     <div>
                         {{ forloop.counter }}. {{ x }}
                     </div>
                 </a>
             {% endfor %}
+            <a id="button_container" href="{% url 'add' %}">
+                <button>Add</button>
+            </a>
         </div>
     </body>
 </html>

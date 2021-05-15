@@ -15,7 +15,7 @@ body {
     width: 100%;
     border: 1px solid #888888;
     margin: 8px;
-    height: fit-content;
+    height: max-content;
 }
 
 .link_item div {
@@ -39,7 +39,23 @@ body {
 #title {
     width: 100%;
     text-align: center;
-    padding: 16px 0px;
+    padding: 16px 0;
     border-bottom: 1px solid #888888;
 
+}
+
+#button_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 70%;
 }

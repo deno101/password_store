@@ -5,6 +5,7 @@ from store.forms import LoginForm, AddForm
 from django.contrib.auth import authenticate, login
 from store.models import PasswordStore
 from django.http import HttpResponseBadRequest
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Create your views here.
@@ -72,6 +73,29 @@ def add_credentials(request):
         return HttpResponseBadRequest()
 
 
-# @login_required(login_url='/core_pssd/login')
-def edit_credentials(requests, id):
-    return render(requests, 'edit.html')
+@login_required(login_url='/core_pssd/login')
+def edit_credentials(request, id):
+    try:
+        data = PasswordStore.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return HttpResponseBadRequest()
+
+    if request.method == 'GET':
+        return render(request, 'edit.html', {
+            'data': data,
+        })
+
+    elif request.method == 'POST':
+        form = AddForm(request.POST)
+
+        if form.is_valid():
+            obj = PasswordStore.objects.get(id=id)
+
+            obj.site = form.data.get('site')
+            obj.username = form.data.get('username')
+            obj.password = form.data.get('password')
+            obj.save()
+
+            return redirect('home')
+    else:
+        return HttpResponseBadRequest()
